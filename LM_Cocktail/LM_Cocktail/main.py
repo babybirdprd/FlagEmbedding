@@ -12,14 +12,23 @@ class MixModelsRequest(BaseModel):
     weights: List[float]
     output_path: str
 
+    class Config:
+        protected_namespaces = ()
+
 class ExampleDataItemForLLM(BaseModel):
     input: str
     output: str
+
+    class Config:
+        protected_namespaces = ()
 
 class ExampleDataItemForEmbedder(BaseModel):
     query: str
     pos: List[str]
     neg: List[str]
+
+    class Config:
+        protected_namespaces = ()
 
 class MixModelsWithDataRequest(BaseModel):
     models: Optional[List[str]] = Field(None, alias='model_names_or_paths')
@@ -30,11 +39,17 @@ class MixModelsWithDataRequest(BaseModel):
     max_input_length: Optional[int] = None
     neg_number: Optional[int] = None
 
+    class Config:
+        protected_namespaces = ()
+
 class MixModelsByLayersRequest(BaseModel):
     models: Optional[List[str]] = Field(None, alias='model_names_or_paths')
     model_type: str
     weights: List[float]
     output_path: str
+
+    class Config:
+        protected_namespaces = ()
 
 @app.post("/mix_models")
 async def mix_models_endpoint(req: MixModelsRequest):
